@@ -3,25 +3,42 @@ import React, { useState, useEffect } from "react";
 function App() {
   const [name, setName] = useState("");
   const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const addTodo = localStorage.getItem("todo");
+    if (addTodo) {
+      setData(JSON.parse(addTodo));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("todo", JSON.stringify(data));
+  }, [data]);
+
   function validate() {
-    if (name.length <= 0) {
-      alert("malumot mavjud emas");
+    if (name.trim().length <= 0) {
+      alert("Ma'lumot mavjud emas");
       return false;
     }
     return true;
   }
+
   function handleOk(e) {
     e.preventDefault();
     const isvalid = validate();
-    if (!isvalid) {
-      return;
-    }
+    if (!isvalid) return;
+
     const info = {
       name,
       id: Date.now(),
     };
     setData([...data, info]);
     setName("");
+  }
+
+  function handleClear(id) {
+    const newData = data.filter((prev) => prev.id !== id);
+    setData(newData);
   }
 
   return (
@@ -34,9 +51,7 @@ function App() {
             type="text"
             placeholder="work"
             value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
+            onChange={(e) => setName(e.target.value)}
           />
           <button className="bg-green-500 rounded-md text-white py-1 px-3 hover:bg-green-600">
             Add
@@ -46,16 +61,23 @@ function App() {
 
       <div className="bg-blue-300 w-[400px] mx-auto p-5 text-center mt-5 rounded-md shadow-md ">
         <ul>
-          {data.length > 0 &&
-            data.map((value) => {
-              return (
-                <div key={value.id}>
-                  <li className="bg-white py-2 rounded-md mb-3 shadow-md cursor-move">
-                    {value.name}
-                  </li>
-                </div>
-              );
-            })}
+          {data.length > 0 ? (
+            data.map((value) => (
+              <div key={value.id} className="flex gap-3">
+                <li className="bg-white py-2 rounded-md w-full mb-3 shadow-md cursor-move text-xl">
+                  {value.name}
+                </li>
+                <button
+                  onClick={() => handleClear(value.id)}
+                  className="bg-red-500 px-3 text-white rounded-md hover:bg-red-600 mb-3"
+                >
+                  clear
+                </button>
+              </div>
+            ))
+          ) : (
+            <p>x</p>
+          )}
         </ul>
       </div>
     </div>
