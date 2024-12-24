@@ -1,85 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import Edit from "./pages/Edit";
+// import Copy from "./pages/Copy";
+// import Drap from "./pages/Drap";
 
 function App() {
-  const [name, setName] = useState("");
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const addTodo = localStorage.getItem("todo");
-    if (addTodo) {
-      setData(JSON.parse(addTodo));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("todo", JSON.stringify(data));
-  }, [data]);
-
-  function validate() {
-    if (name.trim().length <= 0) {
-      alert("Ma'lumot mavjud emas");
-      return false;
-    }
-    return true;
-  }
-
-  function handleOk(e) {
-    e.preventDefault();
-    const isvalid = validate();
-    if (!isvalid) return;
-
-    const info = {
-      name,
-      id: Date.now(),
-    };
-    setData([...data, info]);
-    setName("");
-  }
-
-  function handleClear(id) {
-    const newData = data.filter((prev) => prev.id !== id);
-    setData(newData);
-  }
-
   return (
     <div>
-      <div className="bg-blue-300 w-[400px] mx-auto p-5 text-center mt-12 rounded-md shadow-md ">
-        <h2 className="text-2xl font-medium mb-3">Todo List</h2>
-        <form onSubmit={handleOk}>
-          <input
-            className="w-[80%] rounded-md py-1 px-3 mb-2 mr-2 focus:outline-none shadow-md"
-            type="text"
-            placeholder="work"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <button className="bg-green-500 rounded-md text-white py-1 px-3 hover:bg-green-600">
-            Add
-          </button>
-        </form>
-      </div>
-
-      <div className="bg-blue-300 w-[400px] mx-auto p-5 text-center mt-5 rounded-md shadow-md ">
-        <ul>
-          {data.length > 0 ? (
-            data.map((value) => (
-              <div key={value.id} className="flex gap-3">
-                <li className="bg-white py-2 rounded-md w-full mb-3 shadow-md cursor-move text-xl">
-                  {value.name}
-                </li>
-                <button
-                  onClick={() => handleClear(value.id)}
-                  className="bg-red-500 px-3 text-white rounded-md hover:bg-red-600 mb-3"
-                >
-                  clear
-                </button>
-              </div>
-            ))
-          ) : (
-            <p>x</p>
-          )}
-        </ul>
-      </div>
+      <Edit />
+      {/* <Copy /> */}
+      {/* <Drap /> */}
     </div>
   );
 }
