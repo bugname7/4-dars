@@ -33,7 +33,7 @@ function Copy() {
   };
 
   return (
-    <div className="container mx-auto mt-10 p-5 max-w-md bg-gray-50 rounded-lg shadow-md">
+    <div className="container mx-auto mt-10 p-5 max-w-md bg-blue-200 rounded-lg shadow-md">
       <h1 className="text-center text-2xl font-bold mb-5">
         biror soz kiriting
       </h1>

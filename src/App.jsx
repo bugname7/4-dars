@@ -1,14 +1,14 @@
 import React from "react";
 import Edit from "./pages/Edit";
-// import Copy from "./pages/Copy";
-// import Drap from "./pages/Drap";
+import Copy from "./pages/Copy";
+import Drap from "./pages/Drap";
 
 function App() {
   return (
     <div>
       <Edit />
-      {/* <Copy /> */}
-      {/* <Drap /> */}
+      <Copy />
+      <Drap />
     </div>
   );
 }

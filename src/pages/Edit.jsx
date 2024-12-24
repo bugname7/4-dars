@@ -31,7 +31,7 @@ function Edit() {
 
   return (
     <TextEditContext.Provider value={{ format, formatText }}>
-      <div className="max-w-lg mx-auto mt-10 p-4 bg-gray-50 rounded-lg shadow-lg">
+      <div className="max-w-lg mx-auto mt-10 p-4 bg-blue-200 rounded-lg shadow-lg">
         <h1 className="text-2xl font-bold text-center mb-5">
           matn tahrirlagich
         </h1>
